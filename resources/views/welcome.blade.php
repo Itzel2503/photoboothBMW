@@ -138,6 +138,7 @@
         <img class="carousel-image" src="/img/Artboard 4.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 5.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 7.png" style="display: none;">
+        <img class="carousel-image" src="/img/Artboard 9.png" style="display: none;">
         <!-- ... other elements ... -->
 
         <div class="div-take">
