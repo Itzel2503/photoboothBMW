@@ -8,26 +8,15 @@
             <button class="top-4 right-4 absolute w-40 py-2 text-lg text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #29a9e1;">REGRESAR</button>
         </a>
 
-        <div class="bg-white z-2 w-4/5 h-3/4 shadow-lg m-8 rounded-lg p-6 ease-out shadow-lg relative">
-            <!-- section one -->
-            <section class="">
-                <div class="max-w-5xl px-4 mx-auto">
-                    <div class="flex items-center justify-center text-bmwloyalty">
-                        <div class="text-center align-middle">
-                            <div class="flex text-center align-middle items-center justify-center w-full">
-                                <img src="{{ asset('images/' . $name . '.jpeg') }}" class="w-full h-full object-cover pb-10" alt="Image" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <!-- Download link -->
+        <a href="{{ asset('images/' . $name . '.jpeg') }}" download="{{ $name }}.jpeg" class="text-white mt-5 absolute top-4 left-1/2 transform -translate-x-1/2">
+            <button class="w-80 py-2 text-lg text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #29a9e1;">DESCARGAR</button>
+        </a>
 
-
-            <!-- Download link -->
-            <section class="text-center mt-4">
-                <a href="{{ asset('images/' . $name . '.jpeg') }}" download="{{ $name }}.jpeg" class="text-blue-500 hover:underline">Descargar Imagen</a>
-            </section>
+        <div class="bg-white z-2 md:w-3/5 lg:w-full h-3/4 shadow-lg m-8 rounded-lg p-6 ease-out shadow-lg relative">
+            <img src="{{ asset('images/' . $name . '.jpeg') }}" class="md:w-3/5 lg:w-full h-full object-cover pb-10" alt="Image" />
         </div>
     </div>
 </body>
+
 
