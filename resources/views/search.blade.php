@@ -11,7 +11,7 @@
           <div class="flex items-center justify-center text-bmwloyalty">
             <div class="text-center align-middle">
               <div class="flex text-center align-middle items-center justify-center w-full">
-                <img src="/img/expo-compliance-week/Compliance_Logo_ES.png" class="w-full" fill="none" />
+                {{-- <img src="/img/expo-compliance-week/Compliance_Logo_ES.png" class="w-full" fill="none" /> --}}
               </div>
             </div>
           </div>

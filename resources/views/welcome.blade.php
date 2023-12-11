@@ -72,6 +72,7 @@
 
     .carousel-image {
         width: 100%;
+        height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
         float: left;
         position: absolute;
     }
@@ -134,9 +135,9 @@
 
         <!-- ... other elements ... -->
         <img class="carousel-image" src="/img/Artboard 1.png" style="display: none;">
-        <img class="carousel-image" src="/img/Artboard 3.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 4.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 5.png" style="display: none;">
+        <img class="carousel-image" src="/img/Artboard 6.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 7.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 9.png" style="display: none;">
         <!-- ... other elements ... -->
@@ -240,8 +241,8 @@
         var random = Math.floor(Math.random() * 900) + 100;
 
         // Dimensiones
-        const width = 1920;
-        const height = 1080;
+        const width = 4242;
+        const height = 2828;
         canvas.width = width;
         canvas.height = height;
 

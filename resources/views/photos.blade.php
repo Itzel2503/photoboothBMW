@@ -23,7 +23,6 @@
 
         .strip .photo-container img {
             width: 100%;
-            height: 50%;
             box-shadow: 10px 5px 9px rgba(0, 0, 0, 0.2);
         }
 
