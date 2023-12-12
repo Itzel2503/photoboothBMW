@@ -96,6 +96,8 @@
             transform: rotate(12deg);
         }
     </style>
+    <title>Galería Día de la Familia</title>
+
     @livewireStyles
 </head>
 <body>
@@ -104,7 +106,7 @@
     <div class="photobooth">
         <div class="tittle">
             <p>Galería:</p>
-            <img class="icono" src="/img/Copia de Diapositiva1.PNG">
+            <img class="icono" src="/img/Imagen2.png">
         </div>
         <div class="strip">
             <livewire:see-photos />

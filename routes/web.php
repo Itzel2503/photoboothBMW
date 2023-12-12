@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Collection;
 use App\Http\Controllers\Photos;
 use App\Http\Controllers\Search;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,4 @@ Route::get('/photos', function () {
 });
 
 Route::resource('/search', Search::class);
+Route::resource('/collection', Collection::class);

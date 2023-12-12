@@ -1,7 +1,16 @@
-<!-- Styles -->
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Día de la familia</title>
 
-<style>
+    <!-- Agrega la etiqueta link para el favicon -->
+    <link rel="icon" href="{{ asset('img/Imagen2.png') }}" type="image/x-icon"/>
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
     .fund {
         background: linear-gradient(to bottom, #67aa70, #368faf);
         height: 100vh;
@@ -13,7 +22,7 @@
         flex-direction: column;
     }
 </style>
-
+</head>
 <body>
     <div class="fund relative">
 
@@ -22,7 +31,7 @@
         </a>
         
         <div class="pt-20 pb-5 sm:pb-10 mx-auto flex flex-col items-center content-container">
-            <img class="w-3/4 sm:w-1/5 mb-10 sm:mb-8" src="/img/Copia de Diapositiva1.PNG">
+            <img class="w-3/4 sm:w-1/5 mb-10 sm:mb-8" src="/img/Imagen2.png">
             <img src="{{ asset('images/' . $name . '.jpeg') }}" class="sm:w-3/5" alt="Image" />
         </div>
         <div class="w-full mb-5 text-center">
@@ -33,3 +42,4 @@
         </div>
     </div>
 </body>
+</html>

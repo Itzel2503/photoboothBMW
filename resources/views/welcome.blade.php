@@ -1,3 +1,4 @@
+<title>Foto Día de la Familia</title>
 <style>
     html {
         box-sizing: border-box;
