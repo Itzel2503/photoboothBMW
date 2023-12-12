@@ -8,17 +8,41 @@
             height: 100%;
             display: flex;
             text-align: center;
+            flex-direction: column;
+            align-items: center; /* Centro verticalmente */
+            justify-content: center; /* Centro horizontalmente */
+        }
+
+        .tittle {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* Cambiado a align-start */
+            margin-bottom: -60px; /* Espacio entre el título y la imagen */
+            width: 100%;
+        }
+
+        .tittle img {
+            width: 14%;
+            margin-right: 36px;
+        }
+
+        .tittle p {
+            margin-left: 72px;
+            font-size: 60px;
+            align-self: flex-end; /* Alineado en la parte inferior del contenedor */
+            color: #9ca3af;
         }
 
         .strip {
-            display:flex;
+            display: flex;
+            align-items: center;
         }
 
         .strip .photo-container {
             display: inline-block;
             margin: 8px 0px 10px 35px;
             text-align: center;
-            width: 20%;
+            width: 30%;
         }
 
         .strip .photo-container img {
@@ -75,7 +99,13 @@
     @livewireStyles
 </head>
 <body>
+    <div id="welcomehome" class="h-full lg:h-screen w-full lg:w-1/2 2xl:w-7/12" style="background-image:url(/img/loyalty/fondoestrellas2.jpg);background-size: cover; background-position-x: center;">
+
     <div class="photobooth">
+        <div class="tittle">
+            <p>Galería:</p>
+            <img class="icono" src="/img/Copia de Diapositiva1.PNG">
+        </div>
         <div class="strip">
             <livewire:see-photos />
         </div>

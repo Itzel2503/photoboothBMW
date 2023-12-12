@@ -12,7 +12,7 @@ class SeePhotos extends Component
     
     public function render()
     {
-        $photos = DB::table('photos')->latest()->take(8)->get();
+        $photos = DB::table('photos')->latest()->take(6)->get();
         return view('livewire.see-photos', ['photos' => $photos]);
     }
 
