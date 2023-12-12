@@ -14,16 +14,12 @@
         }
 
         .tittle {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start; /* Cambiado a align-start */
-            margin-bottom: -60px; /* Espacio entre el título y la imagen */
+            margin-bottom: -6px; /* Espacio entre el título y la imagen */
             width: 100%;
         }
 
         .tittle img {
             width: 14%;
-            margin-right: 36px;
         }
 
         .tittle p {
@@ -105,8 +101,7 @@
 
     <div class="photobooth">
         <div class="tittle">
-            <p>Galería:</p>
-            <img class="icono" src="/img/Imagen2.png">
+            <img class="icono" src="/img/Imagen2(gris).png">
         </div>
         <div class="strip">
             <livewire:see-photos />

@@ -6,10 +6,21 @@
         body{
             margin: 0;
             padding: 0;
-            background-image: url("img/Copia de wallpaperbetter.com_5120x2880.jpg");
-            background-size: contain;
-            background-repeat: no-repeat;
         }
+
+        .img-fund {
+            background-image: url("img/Imagen1(gris).png");
+            background-size: 50%; /* Tamaño al 50% */
+            background-repeat: no-repeat;
+            background-position: center center; /* Centrar la imagen */
+            height: 100vh; /* Ajustar al 100% de la altura de la ventana */
+            position: fixed; /* Ajustar a fixed para que cubra toda la pantalla */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: -1; /* Un índice de apilamiento más bajo que 0 */
+        }
+
 
         .content {
             display: flex;
@@ -21,6 +32,8 @@
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             perspective: clamp(400px, 100vw, 1000px);
+            position: relative;
+            z-index: 1;
         }
 
         .content::before,
@@ -130,6 +143,7 @@
     </style>
 </head>
 <body>
+    <div class="img-fund"></div>
     <div class="content">  
         <div class="gallery">
         <!-- Dynamically added gallery lines will go here -->

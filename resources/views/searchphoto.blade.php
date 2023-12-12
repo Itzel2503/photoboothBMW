@@ -27,7 +27,7 @@
     <div class="fund relative">
 
         <a href="{{ url('/search') }}" class="text-white">
-            <button class="top-4 left-4 absolute w-2/5 sm:w-1/5 sm:h-16 text-lg text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #fe0200;">REGRESAR</button>
+            <button class="top-4 left-4 absolute w-2/5 sm:w-1/5 sm:h-16 text-lg text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #B11926; color: white;">REGRESAR</button>
         </a>
         
         <div class="pt-20 pb-5 sm:pb-10 mx-auto flex flex-col items-center content-container">
@@ -37,7 +37,7 @@
         <div class="w-full mb-5 text-center">
             <!-- Download link -->
             <a href="{{ asset('images/' . $name . '.jpeg') }}" download="{{ $name }}.jpeg" class="text-white">
-                <button class="w-2/5 sm:w-1/5 h-9 sm:h-16 text-lg text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #fe0200;">DESCARGAR</button>
+                <button class="w-2/5 sm:w-1/5 h-9 sm:h-16 text-lg text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #B11926; color: white;">DESCARGAR</button>
             </a>
         </div>
     </div>

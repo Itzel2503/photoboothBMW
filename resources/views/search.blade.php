@@ -42,11 +42,11 @@
         <!-- section two -->
         <section class="flex justify-center items-center">
           <div class="div-info w-full sm:w-2/3 px-3 transform flex flex-col justify-center items-center bg-white">
-            <p class="text-center my-5 sm:text-3xl text-xl font-bold">Ingresa el número de tu imagen</p>
+            <p class="text-center my-5 sm:text-3xl text-xl font-bold">Ingresa el código de tu fotografía</p>
             <form method="POST" action="search">
                 @csrf
                 <input name="name" class="text-center shadow appearance-none border rounded w-full p-2 text-grey-darker focus:ring-2 focus:ring-gray-900 uppercase mb-4" type="text" placeholder="ej. 111111">
-                <button type="submit" class="my-10 w-full max-w-lg px-8 py-2 text-lg font-medium text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #fe0200;">BUSCAR</button>
+                <button type="submit" class="my-10 w-full max-w-lg px-8 py-2 text-lg font-medium text-white transition-colors duration-300 transform rounded-full cursor-pointer" style="background-color: #B11926; color: white;">BUSCAR</button>
             </form>
           </div>
         </section>
