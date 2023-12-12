@@ -30,7 +30,7 @@
         clear: both;
     }
 
-     .countdown {
+    .countdown {
         position: absolute;
         top: 0;
         left: 0;
@@ -191,8 +191,58 @@
 
     nextButton.addEventListener('click', showNextImage);
 
+    //Calidad de video
+        navigator.mediaDevices.getUserMedia({
+        video: {
+            width: { ideal: 1920 },
+            height: { ideal: 1080 },
+        },
+        audio: false
+    })
+    .then(stream => {
+        // Access granted, stream can be used
+        const video = document.querySelector('.player');
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(error => {
+        // Handle errors if any
+        console.error('Error accessing webcam:', error);
+    });
+
+    // OBTENER VIDEOS
+    function getVideo() {
+        navigator.mediaDevices
+        .getUserMedia({ video: true, audio: false })
+        .then((localMediaStream) => {
+            mediastream = new MediaStream(localMediaStream);
+            // console.log(mediastream);
+            video.srcObject = mediastream;
+            video.play();
+        })
+        .catch((err) => {
+            console.error("Webcam Access Denied", err);
+            alert("Webcam Access Denied");
+        });
+    }
+
+    video.addEventListener('loadedmetadata', function() {
+    console.log('Video Width:', video.videoWidth);
+    console.log('Video Height:', video.videoHeight);
+    });
+    
+    /*
+    DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=photoboothBMW
+DB_USERNAME=postgres
+DB_PASSWORD= 
+    */
+
+
     // OBTENER VIDEO
-    let mediastream = null;
+    /* let mediastream = null;
     
     navigator.mediaDevices
         .getUserMedia({ video: true, audio: false })
@@ -204,7 +254,7 @@
         .catch((err) => {
             console.error("Webcam Access Denied", err);
             alert("Webcam Access Denied");
-        });
+        }); */
 
     // Add an event listener for keydown events on the document
     document.addEventListener("keydown", function (event) {
