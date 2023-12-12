@@ -201,7 +201,7 @@
     })
     .then(stream => {
         // Access granted, stream can be used
-        const video = document.querySelector('.player');
+        const video = document.querySelector('.video');
         video.srcObject = stream;
         video.play();
     })
@@ -230,16 +230,6 @@
     console.log('Video Width:', video.videoWidth);
     console.log('Video Height:', video.videoHeight);
     });
-    
-    /*
-    DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=photoboothBMW
-DB_USERNAME=postgres
-DB_PASSWORD= 
-    */
-
 
     // OBTENER VIDEO
     /* let mediastream = null;
@@ -292,8 +282,8 @@ DB_PASSWORD=
         var random = Math.floor(Math.random() * 900) + 100;
 
         // Dimensiones
-        const width = 4242;
-        const height = 2828;
+        const width = 1920;
+        const height = 1080;
         canvas.width = width;
         canvas.height = height;
 
