@@ -311,14 +311,19 @@
         canvas.width = width;
         canvas.height = height;
 
-        // Draw the video frame onto the canvas
-        ctx.drawImage(video, 0, 0, width, height);
-        // Flip the image horizontally (invert in x-axis)
-        ctx.scale(-1, 1);
-        // Draw the image over the video at specified coordinates
-        ctx.drawImage(overlayImages[currentImageIndex], -width, 0, width, height);
-        // Reset the scaling for future drawings
-        ctx.scale(1, 1);
+         // Guardar el estado actual del contexto
+    ctx.save();
+
+    // Invertir solo el video dibujando con escala negativa en el eje x
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, -width, 0, width, height);
+    ctx.scale(-1, 1); // Restaurar la escala para futuros dibujos
+
+    // Dibujar la imagen superpuesta sin invertir
+    ctx.drawImage(overlayImages[currentImageIndex], 0, 0, width, height);
+
+    // Restaurar el estado del contexto
+    ctx.restore();
 
         // pick a frame from canvas
         const data = canvas.toDataURL("image/jpeg");

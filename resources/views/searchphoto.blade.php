@@ -11,6 +11,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
+    @font-face {
+        font-family: 'BMWTypeNext';
+        src: url('/fonts/BMWTypeNext-Regular.otf') format('truetype');
+    }
+
+    body {
+        font-family: 'BMWTypeNext';
+    }
     .fund {
         background: linear-gradient(to bottom, #67aa70, #368faf);
         height: 100vh;

@@ -1,6 +1,15 @@
 <html>
 <head>
     <style>
+        @font-face {
+            font-family: 'BMWTypeNext';
+            src: url('/fonts/BMWTypeNext-Regular.otf') format('truetype');
+        }
+
+        body {
+            font-family: 'BMWTypeNext';
+        }
+
         .photobooth {
             background: rgb(255, 255, 255);
             margin: 0;
@@ -14,7 +23,7 @@
         }
 
         .tittle {
-            margin-bottom: -6px; /* Espacio entre el título y la imagen */
+            margin-bottom: 50px; /* Espacio entre el título y la imagen */
             width: 100%;
         }
 
@@ -48,7 +57,7 @@
 
         .strip .photo-container p {
             margin: 0;
-            font-size: 90px;
+            font-size: 60px;
             color: black;
         }
 

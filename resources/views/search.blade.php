@@ -11,6 +11,15 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+      @font-face {
+          font-family: 'BMWTypeNext';
+          src: url('/fonts/BMWTypeNext-Regular.otf') format('truetype');
+      }
+
+      body {
+          font-family: 'BMWTypeNext';
+      }
+
       .div-info {
         border-radius: 1rem;
       }
