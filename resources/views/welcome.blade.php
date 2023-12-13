@@ -263,7 +263,7 @@
             }, 3000);
         }
         // Check if the pressed key is the spacebar (key code 32)
-        if (event.keyCode === 32 && !isCaptureInProgress) {
+        if (event.keyCode === 65 && !isCaptureInProgress) {
             // Prevent the default spacebar behavior (like scrolling the page)
             event.preventDefault();
             // Call the showNextImage function when spacebar is pressed
@@ -301,8 +301,12 @@
 
         // Draw the video frame onto the canvas
         ctx.drawImage(video, 0, 0, width, height);
+        // Flip the image horizontally (invert in x-axis)
+        ctx.scale(-1, 1);
         // Draw the image over the video at specified coordinates
-        ctx.drawImage(overlayImages[currentImageIndex], 0, 0, width, height);
+        ctx.drawImage(overlayImages[currentImageIndex], -width, 0, width, height);
+        // Reset the scaling for future drawings
+        ctx.scale(1, 1);
 
         // pick a frame from canvas
         const data = canvas.toDataURL("image/jpeg");
