@@ -69,7 +69,9 @@
         float: left;
         height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
         object-fit: cover; /* Mantiene la relación de aspecto y cubre el contenedor */
+        transform: scaleX(-1); /* Invertir en el eje X */
     }
+
 
     .carousel-image {
         width: 100%;
@@ -116,14 +118,11 @@
     }
 
     .button--next {
-        color: black;
         margin: 0;
         width: 83px;
         height: 289px;
         border: none;
-        border-radius: 5px;
-        background: repeating-radial-gradient(white, transparent 59px);
-        cursor: pointer;
+        background: none;
         font-size: 50px;
     }
 </style>
@@ -135,19 +134,20 @@
         <video class="video"></video>
 
         <!-- ... other elements ... -->
-        <img class="carousel-image" src="/img/Artboard 1.png" style="display: none;">
+        <img class="carousel-image" src="/img/Artboard 1.png" style="display: block;">
         <img class="carousel-image" src="/img/Artboard 4.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 5.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 6.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 7.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 9.png" style="display: none;">
+        <img class="carousel-image" src="/img/frame-tugger.png" style="display: none;">
         <!-- ... other elements ... -->
 
         <div class="div-take">
             <button class="button--takephoto">Capturar Foto</button>
         </div>
         <div class="div-next">
-            <button class="button--next">></button>
+            <button class="button--next"></button>
         </div>
     </div>
     
@@ -157,8 +157,8 @@
     </form>
 
 
-    <audio class="snap" src="/img/snap.mp3" hidden></audio>
-    <audio class="count" src="/img/3secCountDown.mp3" hidden></audio>
+    <audio class="snap" src="/sound/snap.mp3" hidden></audio>
+    <audio class="count" src="/sound/3secCountDown.mp3" hidden></audio>
 
 <script>
     const overlayImages = document.querySelectorAll('.carousel-image');
@@ -177,21 +177,7 @@
     const srcPhoto = document.querySelector('.src_photo');
     const namePhoto = document.querySelector('.name_photo');
 
-    // CARRUSEL
-    let currentImageIndex = 0;
-
-    function showNextImage() {
-        overlayImages.forEach(image => {
-            image.style.display = 'none';
-        });
-
-        currentImageIndex = (currentImageIndex + 1) % overlayImages.length;
-        overlayImages[currentImageIndex].style.display = 'block';
-    }
-
-    nextButton.addEventListener('click', showNextImage);
-
-    //Calidad de video
+    // OBTENER VIDEO
         navigator.mediaDevices.getUserMedia({
         video: {
             width: { ideal: 1920 },
@@ -227,8 +213,8 @@
     }
 
     video.addEventListener('loadedmetadata', function() {
-    console.log('Video Width:', video.videoWidth);
-    console.log('Video Height:', video.videoHeight);
+        console.log('Video Width:', video.videoWidth);
+        console.log('Video Height:', video.videoHeight);
     });
 
     // OBTENER VIDEO
@@ -246,12 +232,16 @@
             alert("Webcam Access Denied");
         }); */
 
+    let isCaptureInProgress = false; // Variable de control
     // Add an event listener for keydown events on the document
     document.addEventListener("keydown", function (event) {
-        // Check if the pressed key is the spacebar (key code 32)
+        // Check if the pressed key is the B (key code 66)
         if (event.keyCode === 66) {
             // Prevent the default spacebar behavior (like scrolling the page)
             event.preventDefault();
+
+             // Marcar que la captura está en progreso
+            isCaptureInProgress = true;
 
             // Call the takePhoto function when spacebar is pressed
             count.currentTime = 0;
@@ -267,9 +257,31 @@
                 const countdownDiv = document.querySelector('.countdown');
                 countdownDiv.style.display = 'none';
                 takePhoto(); // Take the photo after hiding the countdown
+
+                // Restablecer la variable de control después de la captura
+                isCaptureInProgress = false;
             }, 3000);
         }
+        // Check if the pressed key is the spacebar (key code 32)
+        if (event.keyCode === 32 && !isCaptureInProgress) {
+            // Prevent the default spacebar behavior (like scrolling the page)
+            event.preventDefault();
+            // Call the showNextImage function when spacebar is pressed
+            showNextImage();
+        }
     });
+
+    // CARRUSEL
+    let currentImageIndex = 0;
+
+    function showNextImage() {
+        overlayImages.forEach(image => {
+            image.style.display = 'none';
+        });
+
+        currentImageIndex = (currentImageIndex + 1) % overlayImages.length;
+        overlayImages[currentImageIndex].style.display = 'block';
+    }
 
     function takePhoto() {
         // play the sound
@@ -298,25 +310,9 @@
         link.href = data;
         link.setAttribute("download",  milisegundos + '' + random);
         link.click();
-
         link.textContent = "Download Image";        
-        link.innerHTML = `
-                        <div class="photo-container">
-                            <img src=${data} alt="PhotoBoothFrame"/>
-                            <p>${milisegundos + ''  + random}</p>
-                        </div>
-                    `;
 
         namePhoto.value = milisegundos + '' + random;
-        document.getElementById('photoForm').submit();
-
-        // Check if there are already 10 photos in the strip
-        const existingPhotos = document.querySelectorAll('.strip .photo-container');
-        if (existingPhotos.length >= 10) {
-            // Remove the oldest photo
-            strip.removeChild(strip.lastChild);
-        }
-        strip.insertBefore(link, strip.firstChild);
-        
+        document.getElementById('photoForm').submit();        
     }
 </script>
