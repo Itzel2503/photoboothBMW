@@ -67,7 +67,7 @@
     .video {
         width: 100%;
         float: left;
-        height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
+        height: calc(8.5/16 * 100vw); /* Calcula la altura en función del ancho */
         object-fit: cover; /* Mantiene la relación de aspecto y cubre el contenedor */
         transform: scaleX(-1); /* Invertir en el eje X */
     }
@@ -75,7 +75,7 @@
 
     .carousel-image {
         width: 100%;
-        height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
+        height: calc(8.5/16 * 100vw); /* Calcula la altura en función del ancho */
         float: left;
         position: absolute;
     }
@@ -233,6 +233,31 @@
         }); */
 
     let isCaptureInProgress = false; // Variable de control
+    let captureTimeout;
+
+    // Función para manejar la lógica de la captura de fotos
+    function handleCapture() {
+        if (!isCaptureInProgress) {
+            // Marcar que la captura está en progreso
+            isCaptureInProgress = true;
+
+            // Reproducir el sonido de cuenta regresiva
+            count.currentTime = 0;
+            count.play();
+
+            // Mostrar la cuenta regresiva antes de que comience el temporizador
+            const countdownDiv = document.querySelector('.countdown');
+            countdownDiv.style.display = 'flex';
+
+            // Establecer un temporizador de 3 segundos para la captura de fotos
+            captureTimeout = setTimeout(() => {
+                // Ocultar la cuenta regresiva después del temporizador
+                countdownDiv.style.display = 'none';
+                takePhoto(); // Tomar la foto después de ocultar la cuenta regresiva
+                isCaptureInProgress = false; // Restablecer el estado de la captura
+            }, 3000);
+        }
+    }
     // Add an event listener for keydown events on the document
     document.addEventListener("keydown", function (event) {
         // Check if the pressed key is the B (key code 66)
@@ -240,27 +265,14 @@
             // Prevent the default spacebar behavior (like scrolling the page)
             event.preventDefault();
 
-             // Marcar que la captura está en progreso
-            isCaptureInProgress = true;
+            // Verificar si la captura está en progreso antes de llamar a handleCapture
+            if (!isCaptureInProgress) {
+                // Limpiar el temporizador de captura si está en progreso
+                clearTimeout(captureTimeout);
 
-            // Call the takePhoto function when spacebar is pressed
-            count.currentTime = 0;
-            count.play();
-
-            // Show the countdown before the delay starts
-            const countdownDiv = document.querySelector('.countdown');
-            countdownDiv.style.display = 'flex';
-
-            // Delay execution of hideCountdown and takePhoto functions by 3 seconds
-            setTimeout(() => {
-                // Hide the countdown after the delay
-                const countdownDiv = document.querySelector('.countdown');
-                countdownDiv.style.display = 'none';
-                takePhoto(); // Take the photo after hiding the countdown
-
-                // Restablecer la variable de control después de la captura
-                isCaptureInProgress = false;
-            }, 3000);
+                // Llamar a la función handleCapture cuando se presiona la tecla 'B'
+                handleCapture();
+            }
         }
         // Check if the pressed key is the spacebar (key code 32)
         if (event.keyCode === 65 && !isCaptureInProgress) {
