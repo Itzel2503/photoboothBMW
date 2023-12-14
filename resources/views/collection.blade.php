@@ -18,9 +18,18 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: -1; /* Un índice de apilamiento más bajo que 0 */
+            z-index: 10;
+            transition: opacity 2s ease-in-out;
+            opacity: 1;
         }
 
+        .fade-out {
+            opacity: 0;
+        }
+
+        .fade-in {
+            opacity: 1;
+        }
 
         .content {
             display: flex;
@@ -33,14 +42,13 @@
             overflow: hidden;
             perspective: clamp(400px, 100vw, 1000px);
             position: relative;
-            z-index: 1;
         }
 
         .content::before,
         .content::after {
             content: "";
             position: fixed;
-            z-index: 10;
+            z-index: 9;
             left: 0;
             right: 0;
             height: 30vh;
@@ -62,7 +70,7 @@
             max-width: 2080px;
             min-width: 720px;
             height: 100vh;
-            transform: translate(15%, 0%) rotate(-6deg) rotateX(10deg) rotateY(20deg);
+            /*transform: translate(15%, 0%) rotate(-6deg) rotateX(10deg) rotateY(20deg);*/
         }
         
         .gallery_line {
@@ -142,7 +150,9 @@
         }
     </style>
 </head>
+
 <body>
+
     <div class="img-fund"></div>
     <div class="content">  
         <div class="gallery">
@@ -151,83 +161,68 @@
     </div>
 
     <script>
+        // Agregar la clase fade-in después de 500 ms (0.5 segundos)
+        setTimeout(function () {
+            document.querySelector('.img-fund').classList.add('fade-out');
+        }, 2000);
 
         function recargarPagina() {
-            location.reload();
+            // Agregar la clase para desvanecer la imagen
+            document.querySelector('.img-fund').classList.remove('fade-out');
+            // Esperar 0.5 segundos (500 milisegundos) antes de recargar la página
+            setTimeout(function () {
+                // Recargar la página
+                location.reload();
+            }, 2000);
         }
         // Llamamos a la función de recarga después de 5 minutos
-        setTimeout(recargarPagina, 60000);
-
-
+        setTimeout(recargarPagina, 30500); // 56500 = 60000 (1 minuto) - 500 (0.5 segundos)
+        
         // Acceder a la colección y al atributo 'name' en JavaScript
         var photosCollection = @json($photos);
 
-
         // Function to fetch image file names from the root folder
         function fetchImageNames() {
-            const images = [];
-            photosCollection.forEach(function(photo) {
-                images.push('images/' + photo.name + '.jpeg');
-            });
-            return images;
-        }
+            const result = [];
+            let currentBatch = [];
 
+            photosCollection.forEach(function (photo, index) {
+                const imageName = 'images/' + photo.name + '.jpeg';
+                currentBatch.push(imageName);
 
-        // Function to generate image elements
-        function generateImages(imageNames) {
-            const images = [];
-            imageNames.forEach((imageName) => {
-                const img = document.createElement("img");
-                img.src = imageName;
-                images.push(img);
+                // Si el tamaño de images es un múltiplo de 5 o si estamos en el último elemento
+                if ((index + 1) % 5 === 0 || index === photosCollection.length - 1) {
+                    // Rellenar con elementos vacíos si no hay suficientes para alcanzar 5
+                    currentBatch = currentBatch.concat(Array(5 - currentBatch.length).fill('img/Imagen1(gris).png'));
+
+                    result.push(currentBatch);
+                    // Limpiar el array para el siguiente lote
+                    currentBatch = [];
+                }
             });
-            return images;
+            return result;
         }
+        console.log(fetchImageNames());
 
         // Function to add images to the gallery lines
-        function addImagesToGallery(numLines, imagesPerLine) {
+        function addImagesToGallery() {
             const gallery = document.querySelector(".gallery");
-            const allImageNames = fetchImageNames();
-            const totalImages = allImageNames.length;
-            const imagesPerGalleryLine = Math.ceil(totalImages / numLines);
+            const allImageArrays = fetchImageNames();
 
-            for (let i = 0; i < numLines; i++) {
+            allImageArrays.forEach((imageArray) => {
                 const galleryLine = document.createElement("div");
                 galleryLine.classList.add("gallery_line");
 
-                const startIndex = i * imagesPerGalleryLine;
-                const endIndex = Math.min((i + 1) * imagesPerGalleryLine, totalImages);
-                const imagesSlice = allImageNames.slice(startIndex, endIndex);
-                const images = generateImages(imagesSlice);
-                images.forEach((img) => {
+                imageArray.forEach((imageName) => {
+                    const img = document.createElement("img");
+                    img.src = imageName;
                     galleryLine.appendChild(img);
                 });
 
                 gallery.appendChild(galleryLine);
-            }
-
-            // Function to change all images randomly
-            function changeAllImagesRandomlyWithTransition() {
-            const allImages = document.querySelectorAll("img");
-            const allImageNames = fetchImageNames();
-
-            allImages.forEach(img => {
-                const randomIndex = Math.floor(Math.random() * allImageNames.length);
-                const newRandomIndex = (randomIndex + 1) % allImageNames.length; // Change the image source index
-                img.classList.add('hidden'); // Apply 'hidden' class to initiate the fade-out transition
-                setTimeout(() => {
-                    img.src = allImageNames[newRandomIndex];
-                    img.classList.remove('hidden'); // Remove 'hidden' class to initiate the fade-in transition
-                }, 2000); // Adjust this timeout to match the transition duration
             });
         }
-
-            // Change all images randomly with a smooth transition every 40sec seconds
-            setInterval(changeAllImagesRandomlyWithTransition, 40000); // Change time interval (milliseconds)
-        }
-
-        // Call the function to add lines and images
-        addImagesToGallery(6, 20); // Adjust numbers for lines and images per line
+        addImagesToGallery();
     </script>
 </body>
 </html>

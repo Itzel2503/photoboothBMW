@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Collection extends Controller
+class Collection2 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class Collection extends Controller
      */
     public function index()
     {
-        $photos = DB::table('photos')->latest()->take(33)->get();
-        return view('collection', ['photos' => $photos]);
+        $photos = DB::table('photos')->latest()->take(40)->get();
+        return view('collection2', ['photos' => $photos]);
     }
 
     /**
