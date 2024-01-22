@@ -187,7 +187,7 @@
             let currentBatch = [];
 
             photosCollection.forEach(function (photo, index) {
-                const imageName = 'images/' + photo.name + '.jpeg';
+                const imageName = 'images/' + photo.name + '.jpg';
                 currentBatch.push(imageName);
 
                 // Si el tamaño de images es un múltiplo de 5 o si estamos en el último elemento
