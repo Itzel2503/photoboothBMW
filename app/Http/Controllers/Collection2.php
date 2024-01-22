@@ -14,7 +14,7 @@ class Collection2 extends Controller
      */
     public function index()
     {
-        $photos = DB::table('photos')->latest()->take(40)->get();
+        $photos = DB::table('photos')->latest()->take(60)->get();
         return view('collection2', ['photos' => $photos]);
     }
 
