@@ -67,15 +67,21 @@
     .video {
         width: 100%;
         float: left;
-        height: calc(8.5/16 * 100vw); /* Calcula la altura en función del ancho */
+        height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
         object-fit: cover; /* Mantiene la relación de aspecto y cubre el contenedor */
         transform: scaleX(-1); /* Invertir en el eje X */
     }
 
+    .carousel-container {
+        width: 100%;
+        height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
+        float: left;
+        position: absolute;
+    }
 
     .carousel-image {
         width: 100%;
-        height: calc(8.5/16 * 100vw); /* Calcula la altura en función del ancho */
+        height: calc(9/16 * 100vw); /* Calcula la altura en función del ancho */
         float: left;
         position: absolute;
     }
@@ -134,13 +140,14 @@
         <video class="video"></video>
 
         <!-- ... other elements ... -->
-        <img class="carousel-image" src="/img/Artboard 1.png" style="display: block;">
+        <div id="carousel-container"></div>
+        {{-- <img class="carousel-image" src="/img/marco_1.png" style="display: block;">
         <img class="carousel-image" src="/img/Artboard 4.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 5.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 6.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 7.png" style="display: none;">
         <img class="carousel-image" src="/img/Artboard 9.png" style="display: none;">
-        <img class="carousel-image" src="/img/frame-tugger.png" style="display: none;">
+        <img class="carousel-image" src="/img/frame-tugger.png" style="display: none;"> --}}
         <!-- ... other elements ... -->
 
         <div class="div-take">
@@ -154,6 +161,8 @@
     <form id="photoForm" action="/save-photos" method="post">
     @csrf
         <input hidden class="name_photo" name="name_photo" id="name_photo">
+        <input hidden class="image_file" name="image_file" id="image_file">
+        <input hidden class="destination_path" name="destination_path" id="destination_path" value="public/images">
     </form>
 
 
@@ -161,7 +170,7 @@
     <audio class="count" src="/sound/3secCountDown.mp3" hidden></audio>
 
 <script>
-    const overlayImages = document.querySelectorAll('.carousel-image');
+    // const overlayImages = document.querySelectorAll('.carousel-image');
     const video = document.querySelector(".video");
     const canvas = document.querySelector(".canvas");
     const ctx = canvas.getContext("2d");
@@ -176,6 +185,8 @@
 
     const srcPhoto = document.querySelector('.src_photo');
     const namePhoto = document.querySelector('.name_photo');
+    const imageFile = document.querySelector('.image_file');
+    const destinationPath = document.querySelector('.destination_path');
 
     // OBTENER VIDEO
         navigator.mediaDevices.getUserMedia({
@@ -284,6 +295,33 @@
     });
 
     // CARRUSEL
+    var maxImages = 11; // Puedes ajustar esto según sea necesario
+
+    // Obtén el contenedor de carrusel
+    var carouselContainer = document.getElementById('carousel-container');
+
+    // Crear y agregar las imágenes al contenedor
+    var overlayImages = [];
+    for (var i = 1; i <= maxImages; i++) {
+        // Crea un elemento de imagen
+        var img = document.createElement('img');
+        img.className = 'carousel-image';
+        img.src = '/img/marco_' + i + '.png';
+
+        // Establece el estilo según el índice
+        if (i === 1) {
+            img.style.display = 'block';
+        } else {
+            img.style.display = 'none';
+        }
+
+        // Añade la imagen al contenedor
+        carouselContainer.appendChild(img);
+
+        // Agrega la imagen al array para su posterior uso en showNextImage
+        overlayImages.push(img);
+    }
+    
     let currentImageIndex = 0;
 
     function showNextImage() {
@@ -295,6 +333,17 @@
         overlayImages[currentImageIndex].style.display = 'block';
     }
 
+    function getRandomLetter() {
+        var alphabet = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+        var randomIndex1 = Math.floor(Math.random() * 26);
+        var randomIndex2 = Math.floor(Math.random() * 26);
+
+        var randomLetter1 = alphabet.charAt(randomIndex1);
+        var randomLetter2 = alphabet.charAt(randomIndex2);
+
+        return randomLetter1 + randomLetter2;
+    }
+
     function takePhoto() {
         // play the sound
         snap.currentTime = 0;
@@ -303,7 +352,8 @@
         // code name
         var fecha = new Date();
         var milisegundos = fecha.getMilliseconds();
-        var random = Math.floor(Math.random() * 900) + 100;
+        var random = Math.floor(Math.random() * 10);
+        var randomLetters = getRandomLetter();
 
         // Dimensiones
         const width = 1920;
@@ -312,28 +362,30 @@
         canvas.height = height;
 
          // Guardar el estado actual del contexto
-    ctx.save();
+        ctx.save();
 
-    // Invertir solo el video dibujando con escala negativa en el eje x
-    ctx.scale(-1, 1);
-    ctx.drawImage(video, -width, 0, width, height);
-    ctx.scale(-1, 1); // Restaurar la escala para futuros dibujos
+        // Invertir solo el video dibujando con escala negativa en el eje x
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, -width, 0, width, height);
+        ctx.scale(-1, 1); // Restaurar la escala para futuros dibujos
 
-    // Dibujar la imagen superpuesta sin invertir
-    ctx.drawImage(overlayImages[currentImageIndex], 0, 0, width, height);
+        // Dibujar la imagen superpuesta sin invertir
+        ctx.drawImage(overlayImages[currentImageIndex], 0, 0, width, height);
 
-    // Restaurar el estado del contexto
-    ctx.restore();
+        // Restaurar el estado del contexto
+        ctx.restore();
 
         // pick a frame from canvas
         const data = canvas.toDataURL("image/jpeg");
         const link = document.createElement("a");
         link.href = data;
-        link.setAttribute("download",  milisegundos + '' + random);
+        // link.setAttribute("download",  milisegundos + '' + random);
         link.click();
-        link.textContent = "Download Image";        
+        // link.textContent = "Download Image";        
 
-        namePhoto.value = milisegundos + '' + random;
-        document.getElementById('photoForm').submit();        
+        namePhoto.value = randomLetters + '' + milisegundos + '' + random;
+        // Mover la imagen al directorio "public"
+        imageFile.value = data;
+        document.getElementById('photoForm').submit();   
     }
 </script>
