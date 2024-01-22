@@ -14,7 +14,7 @@ class Search extends Controller
      */
     public function index()
     {
-        return view('search');
+        //
     }
 
     /**
@@ -40,7 +40,7 @@ class Search extends Controller
         if($name != null) {
             return view('searchphoto', ['name' => $name->name]);
         } else {
-            return redirect()->route('search.index');
+            return view('search');
         }
     }
 
